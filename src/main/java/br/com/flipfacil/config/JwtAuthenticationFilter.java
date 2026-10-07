@@ -26,11 +26,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String jwt = authorizationHeader.substring(7);
             String email = jwtService.validar(jwt);
+            System.out.println("JWT EMAIL: " + email);
             if (email != null && !email.isBlank()) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, null, java.util.Collections.emptyList());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
+        System.out.println("AUTH HEADER: " + authorizationHeader);
         filterChain.doFilter(request, response);
     }
 }
