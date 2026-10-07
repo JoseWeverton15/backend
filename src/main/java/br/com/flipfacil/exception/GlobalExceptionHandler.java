@@ -33,4 +33,14 @@ public class GlobalExceptionHandler {
         erros.put("error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erros);
     }
+
+    @ExceptionHandler(ScraperException.class)
+    public ResponseEntity<?> handleScraperException(ScraperException ex) {
+        Map<String, String> erro = new HashMap<>();
+        erro.put("error", ex.getMessage());
+
+        return ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(erro);
+    }
 }
