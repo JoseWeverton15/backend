@@ -1,5 +1,8 @@
 package br.com.flipfacil.dto;
 
+import java.util.List;
+import java.util.Map;
+
 public class ScraperPaginaResponse {
     private String titulo;
     private String preco_bruto;

@@ -5,6 +5,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
+import org.springframework.security.task.DelegatingSecurityContextAsyncTaskExecutor;
 
 @Configuration
 @EnableAsync
@@ -19,6 +20,6 @@ public class AsyncConfig {
         taskExecutor.setThreadNamePrefix("flipfacil-async-");
         taskExecutor.initialize();
 
-        return taskExecutor;
+        return new DelegatingSecurityContextAsyncTaskExecutor(taskExecutor);
     }
 }
