@@ -14,6 +14,8 @@ import br.com.flipfacil.dto.ScraperPaginaRequest;
 
 import jakarta.validation.Valid;
 
+import java.util.concurrent.CompletableFuture;
+
 @RestController
 @RequestMapping("/api/scraper")
 public class ScraperController{
@@ -29,7 +31,7 @@ public class ScraperController{
     }
 
     @PostMapping("/getItems") 
-    public ScraperResponse scraperPagina(@Valid @RequestBody ScraperPaginaRequest scraperRequest){
+    public CompletableFuture<ScraperResponse> scraperPagina(@Valid @RequestBody ScraperPaginaRequest scraperRequest){
         return scraperService.extrairPagina(scraperRequest);
     }
 

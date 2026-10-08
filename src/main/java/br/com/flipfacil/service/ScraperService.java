@@ -9,6 +9,9 @@ import br.com.flipfacil.dto.ScraperResponse;
 import br.com.flipfacil.dto.ScraperPaginaRequest;
 import br.com.flipfacil.exception.ScraperException;
 
+import org.springframework.scheduling.annotation.Async;
+import java.util.concurrent.CompletableFuture;
+
 @Service
 public class ScraperService {
     private final RestClient restClient;
@@ -30,15 +33,16 @@ public class ScraperService {
             throw new ScraperException("Erro ao extrair anúncio: " + e.getMessage(), e);
         }
     }
-
-    public ScraperResponse extrairPagina(ScraperPaginaRequest request) {
+    
+    @Async("taskExecutor")
+    public CompletableFuture<ScraperResponse> extrairPagina(ScraperPaginaRequest request) {
         try {
-            return restClient
+            return CompletableFuture.completedFuture(restClient
                     .post()
                     .uri("/scrape/getItems")
                     .body(request)
                     .retrieve()
-                    .body(ScraperResponse.class);
+                    .body(ScraperResponse.class));
         } catch (Exception e) {
             throw new ScraperException("Erro ao extrair página: " + e.getMessage(), e);
         }
