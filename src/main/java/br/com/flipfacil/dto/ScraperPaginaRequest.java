@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class ScraperRequest {
-    @NotBlank(message = "O campo url_anuncio não pode estar vazio")
-    private String url_anuncio;
+public class ScraperPaginaRequest {
+    @NotBlank(message = "O campo url_pagina não pode estar vazio")
+    private String url_pagina;
 }
