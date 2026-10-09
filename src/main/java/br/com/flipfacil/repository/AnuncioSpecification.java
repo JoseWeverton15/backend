@@ -61,6 +61,7 @@ public class AnuncioSpecification {
                 );
     }
 
+    
     public static Specification<Anuncio> categoriaEquals(String categoria) {
         if (categoria == null || categoria.isBlank()) {
             return Specification.unrestricted();
@@ -70,8 +71,16 @@ public class AnuncioSpecification {
 
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(
-                        criteriaBuilder.lower(root.get("categoria")),
-                        texto
+                        criteriaBuilder.function(
+                                "unaccent",
+                                String.class,
+                                criteriaBuilder.lower(root.get("categoria"))
+                        ),
+                        criteriaBuilder.function(
+                                "unaccent",
+                                String.class,
+                                criteriaBuilder.literal(texto)
+                        )
                 );
     }
 
