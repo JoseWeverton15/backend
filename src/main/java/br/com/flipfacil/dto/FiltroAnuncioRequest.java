@@ -13,6 +13,7 @@ public class FiltroAnuncioRequest {
     private String categoria;
     private String cidade;
     private String estado;
+    private Double notaMinima;
 
     public FiltroAnuncioRequest() {
     }

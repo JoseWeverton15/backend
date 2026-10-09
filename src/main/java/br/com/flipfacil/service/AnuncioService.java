@@ -34,7 +34,15 @@ public class AnuncioService {
                                         : BigDecimal.valueOf(filtro.getPrecoMaximo())))
                         .and(AnuncioSpecification.categoriaEquals(filtro.getCategoria()))
                         .and(AnuncioSpecification.cidadeEquals(filtro.getCidade()))
-                        .and(AnuncioSpecification.estadoEquals(filtro.getEstado()));
+                        .and(AnuncioSpecification.estadoEquals(filtro.getEstado()))
+                        .and((root, query, criteriaBuilder) -> {
+                            if (filtro.getNotaMinima() == null) {
+                                return criteriaBuilder.conjunction();
+                            }
+                            return criteriaBuilder.greaterThanOrEqualTo(
+                                    root.get("pontuacaoPreliminar"),
+                                    BigDecimal.valueOf(filtro.getNotaMinima()));
+                        });
 
         return anuncioRepository.findAll(specification);
     }

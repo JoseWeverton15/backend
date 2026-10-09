@@ -111,4 +111,15 @@ public class AnuncioSpecification {
                         texto
                 );
     }
+
+    public static Specification<Anuncio> notaGreaterThanOrEqualTo(Double notaMinima) {
+        if (notaMinima == null) {
+            return Specification.unrestricted();
+        }
+
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.greaterThanOrEqualTo(
+                        root.get("pontuacaoPreliminar"), notaMinima
+                );
+    }
 }
