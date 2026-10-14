@@ -1,13 +1,10 @@
 package br.com.flipfacil.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class ScraperPaginaRequest {
-    @NotBlank(message = "O campo url_pagina não pode estar vazio")
-    private String url_pagina;
+    @NotBlank(message = "O campo url_busca não pode estar vazio")
+    private String url_busca;
 }
